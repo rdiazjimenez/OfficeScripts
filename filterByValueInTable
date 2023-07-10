@@ -1,0 +1,25 @@
+function main(workbook: ExcelScript.Workbook) {
+	let selectedSheet = workbook.getActiveWorksheet();
+	
+	// Apply values filter on selectedSheet
+	
+	let activeCell = workbook.getActiveCell();
+
+	let targetTable = activeCell.getTables()[0];
+
+	let activeCellCol = activeCell.getColumnIndex();
+
+	let targetTableCol = targetTable.getRange().getColumnIndex();
+
+	let targetColInd = activeCellCol - targetTableCol + 1;
+
+	let targetCol = targetTable.getColumnById(targetColInd);
+
+	let curValue = activeCell.getValue();
+
+	let vValue = [curValue.toString()];
+
+	console.log(targetCol.getName());
+
+	targetCol.getFilter().applyValuesFilter(vValue);
+}
